@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+    <link rel="stylesheet" href="src/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+      crossorigin="anonymous"
+    />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    
+  </head>
+
+  <!-- FLEX -->
+
+  <body>
+    <div class="fullPageContainer">
+      <!-- first section of page -->
+      <div class="searchSection">
+        <form class="searchBox" id="new-location-form">
+          <input type="text" id="city-submit" placeholder="search..." />
+          <input type="submit" id="search-city" value="Search"></input>
+        </form>
+        <button id="current-location-button">Current</button>
+        <h3 class="tempOptions">
+          <span id="celsius">℃</span>|<span id="fahrenheit">℉</span>
+        </h3>
+      </div>
+
+      <!-- currentInfo  -->
+      <div class="currentSection">
+        <div class="currentWeatherbox">
+          <div class="currentWeatherInfo">
+            <div id="current-weather-icon">☀</div>
+            <div id="current-weather">Cloudy</div>
+            <div id="current-temp">70°</div>
+            <div id="current-humidity">Humidity:</div>
+            <div id="current-humidity-value">20%</div>
+          </div>
+        </div>
+
+        <!-- location and date info box -->
+        <div class="locationInfoBox">
+          <h1><span id="current-city">City, </span><span id="current-state">State/Country</span></h1>
+          <h2 id="current-date">Saturday Aug 20</h2>
+        </div>
+        <!-- other info box with alerts -->
+        <div class="otherInfoBox">
+          <ul class="container otherInfo">
+            <li class="container feelsLike">
+              Feels Like<span class="feelsLikeValue">30°</span>
+            </li>
+            <li class="container uvIndex">
+              UV Index<span class="uvIndexValue">8/10</span>
+            </li>
+            <li class="container wind">
+              Wind<span class="windValue">6 mph</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- future forecast area -->
+      <div class="forecastSection">
+        <div class="forecastArea day1">
+          <p class="weatherIcon" id="day1-icon">☀</p>
+          <p class="forecastDay" id="day1-day">Thu</p>
+          <p class="forecastDate" id="day1-date">Aug 12</p>
+          <p><span class="forecastHigh" id="day1-high">82°</span> | <span class="forecastLow" id="day1-low">66°</span></p>
+        </div>
+        <div class="forecastArea day2">
+          <p class="weatherIcon" id="day2-icon">☀</p>
+          <p class="forecastDay" id="day2-day">Thu</p>
+          <p class="forecastDate" id="day2-date">Aug 12</p>
+          <p><span class="forecastHigh" id="day2-high">82°</span> | <span class="forecastLow" id="day2-low">66°</span></p>
+        </div>
+        <div class="forecastArea day3">
+          <p class="weatherIcon" id="day3-icon">☀</p>
+          <p class="forecastDay" id="day3-day">Thu</p>
+          <p class="forecastDate" id="day3-date">Aug 12</p>
+          <p><span class="forecastHigh" id="day3-high">82°</span> | <span class="forecastLow" id="day3-low">66°</span></p>
+        </div>
+        <div class="forecastArea day4">
+          <p class="weatherIcon" id="day4-icon">☀</p>
+          <p class="forecastDay" id="day4-day">Thu</p>
+          <p class="forecastDate" id="day4-date">Aug 12</p>
+          <p><span class="forecastHigh" id="day4-high">82°</span> | <span class="forecastLow" id="day4-low">66°</span></p>
+        </div>
+        <div class="forecastArea day5">
+          <p class="weatherIcon" id="day5-icon">☀</p>
+          <p class="forecastDay" id="day5-day">Thu</p>
+          <p class="forecastDate" id="day5-date">Aug 12</p>
+          <p><span class="forecastHigh" id="day5-high">82°</span> | <span class="forecastLow" id="day5-low">66°</span></p>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <div class="sig">Coded by Kaz</div>
+    </div>
+
+    <script
+      src="https://kit.fontawesome.com/e97a9d612f.js"
+      crossorigin="anonymous">
+  </script>
+  <script src="src/script.js"></script>
+  </body>
+</html>

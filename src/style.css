@@ -1,0 +1,226 @@
+body {
+  margin: auto;
+}
+
+.fullPageContainer {
+  width: 800px;
+  margin: 100px auto;
+  background-image: url("../images/sunny.jpg");
+  background-size: 800px;
+  border-radius: 40px;
+}
+
+.searchSection {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  padding: 20px;
+}
+form {
+  display: inline-flex;
+  margin-right: 5px;
+  border: 1px solid rgba(99, 99, 99, 0.2);
+  border-radius: 5px;
+}
+input[type="text"] {
+  writing-mode: sideways-lr;
+  width: 20em;
+  padding: 5px;
+  border-radius: 5px;
+  border-color: transparent;
+  color: rgb(99, 99, 99);
+}
+input[type="text"]:focus {
+  outline: none;
+  background-color: rgb(240, 243, 247);
+}
+#search-city {
+  line-height: 2em;
+  margin-left: -55px;
+  text-align: center;
+  color: white;
+  background-color: rgb(123, 175, 218);
+  border: 1px solid rgb(123, 175, 218);
+  border-radius: 0px 5px 5px 0px;
+  transition: all 150ms ease-in-out;
+}
+#search-city:hover {
+  background-color: rgb(76, 131, 175);
+}
+#current-location-button {
+  margin-left: 10px;
+  width: 5em;
+  text-align: center;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  background-color: #abb8be;
+  color: white;
+  transition: all 150ms ease-in-out;
+}
+#current-location-button:hover {
+  background-color: #81939b;
+}
+.tempOptions {
+  display: inline-flex;
+  margin-left: 50px;
+  color: rgb(61, 61, 61);
+}
+#celsius {
+  margin-right: 10px;
+  transition: all 150ms ease-in-out;
+}
+#celsius:hover {
+  cursor: pointer;
+  text-shadow: -3px 3px 5px rgb(99, 99, 99);
+}
+#fahrenheit {
+  margin-left: 8px;
+  transition: all 150ms ease-in-out;
+}
+#fahrenheit:hover {
+  cursor: pointer;
+  text-shadow: 5px 3px 5px rgb(99, 99, 99);
+}
+.currentSection {
+  display: flex;
+  flex-direction: row;
+}
+
+#current-weather-icon {
+  font-size: 60px;
+  grid-area: currentWeatherIcon;
+  text-align: center;
+  padding-left: 40px;
+}
+
+.currentWeatherInfo {
+  display: grid;
+  width: 10em;
+  text-align: right;
+  position: relative;
+  left: 5px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 0.8fr 0.2fr 0.5fr;
+  grid-template-areas:
+    "currentWeatherIcon currentWeatherIcon"
+    "currentWeather currentTemp"
+    "currentHumidity currentHumidityValue";
+}
+
+#current-weather {
+  padding-left: 3em;
+  text-align: left;
+  font-size: 14px;
+  grid-area: currentWeather;
+}
+#current-temp {
+  padding-right: 0.5em;
+  text-align: right;
+  font-size: 14px;
+  grid-area: currentTemp;
+}
+#current-humidity {
+  padding-left: 3em;
+  text-align: left;
+  grid-area: currentHumidity;
+  font-size: 14px;
+}
+#current-humidity-value {
+  padding-right: 0.5em;
+  text-align: right;
+  font-size: 14px;
+  grid-area: currentHumidityValue;
+}
+.locationInfoBox {
+  align-self: flex-start;
+  width: 450px;
+  padding-top: 10px;
+}
+
+#current-city,
+#current-state {
+  font-size: 40px;
+}
+
+#current-date {
+  margin-top: -10px;
+  margin-left: 5px;
+  font-size: 22px;
+  font-weight: 100;
+}
+
+.otherInfoBox {
+  width: 230px;
+  position: relative;
+  right: 40px;
+  top: 10px;
+  padding-right: 30px;
+}
+
+.container.otherInfo {
+  display: inline-block;
+  list-style: none;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: rgb(99, 99, 99);
+}
+
+.otherInfoBox .feelsLike,
+.uvIndex,
+.wind {
+  font-size: 14px;
+  position: relative;
+  right: 0px;
+  padding-bottom: 3px;
+}
+
+.otherInfoBox .feelsLikeValue,
+.uvIndexValue,
+.windValue {
+  font-size: 14px;
+  float: right;
+  position: relative;
+  right: -10px;
+}
+
+.forecastSection {
+  display: inline-flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  width: 100%;
+  padding: 25px;
+}
+.forecastArea {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 8rem;
+  height: 8rem;
+  border-radius: 10px;
+}
+.weatherIcon {
+  font-size: 40px;
+  margin-bottom: 0px;
+}
+.forecastDay {
+  font-size: 14px;
+  margin-bottom: -10px;
+}
+.forecastDate {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.forecastHigh,
+.forecastLow {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.sig {
+  text-align: center;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-weight: 100;
+  font-size: 12px;
+  padding: 40px 0px 10px 0px;
+}
