@@ -224,3 +224,7 @@ input[type="text"]:focus {
   font-size: 12px;
   padding: 40px 0px 10px 0px;
 }
+
+.codeLink {
+  color: rgb(76, 131, 175);
+}
