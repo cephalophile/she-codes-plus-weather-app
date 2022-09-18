@@ -139,6 +139,7 @@ function getCurrentWeather(position) {
   axios.get(apiUrl).then(showWeatherHumidityValue);
   axios.get(apiUrl).then(showWind);
   axios.get(apiUrl).then(showFeelsLike);
+  axios.get(apiUrl).then(showIcon);
 }
 
 function showLocation(response) {
@@ -177,6 +178,16 @@ function showFeelsLike(response) {
   feelsLike.innerHTML = `${temp}°`;
 }
 
+function showIcon(response) {
+  let currentIcon = document.querySelector("#icon-1");
+  let alt = response.data.weather[0].description;
+  currentIcon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  currentIcon.setAttribute("alt", `${response.data.weather[0].description}`);
+}
+
 //event listener
 function getCurrentPosition() {
   //navigator.geolocation.getCurrentPosition(getCurrentCity);
@@ -204,6 +215,7 @@ function displayWeather(response) {
   showWeatherHumidityValue(response);
   showWind(response);
   showFeelsLike(response);
+  showIcon(response);
   clearSearch();
 }
 
