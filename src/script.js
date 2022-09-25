@@ -38,7 +38,7 @@ let months = [
 let month = months[now.getMonth()];
 dateOnPage.innerHTML = `${day}, ${month} ${date}`;
 
-//Switches from C to F
+//Switches to C
 function convertToC(event) {
   event.preventDefault();
   //convert today's temp
@@ -69,11 +69,15 @@ function convertToC(event) {
 
   let feelsLikeTemp = document.querySelector(".feelsLikeValue");
   feelsLikeTemp.innerHTML = `${feelsLikeValue}°`;
+
+  let metricWind = Math.round(windSpeed * 1.609);
+  let currentWind = document.querySelector(".windValue");
+  currentWind.innerHTML = `${metricWind} kph`;
 }
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", convertToC);
 
-//Swithces from F to C
+//Swithces to F
 function convertToF(event) {
   event.preventDefault();
   //convert today's temp
@@ -106,6 +110,9 @@ function convertToF(event) {
   let feelsLikeTemp = document.querySelector(".feelsLikeValue");
   let fFeelsLikeValue = Math.round((feelsLikeValue * 9) / 5 + 32);
   feelsLikeTemp.innerHTML = `${fFeelsLikeValue}°`;
+
+  let currentWind = document.querySelector(".windValue");
+  currentWind.innerHTML = `${windSpeed} mph`;
 }
 let fahrenheit = document.querySelector("#fahrenheit");
 fahrenheit.addEventListener("click", convertToF);
@@ -178,6 +185,7 @@ function showWeatherHumidityValue(response) {
 function showWind(response) {
   let currentWind = document.querySelector(".windValue");
   currentWind.innerHTML = `${Math.round(response.data.wind.speed)} mph`;
+  globalThis.windSpeed = Math.round(response.data.wind.speed);
 }
 
 function showFeelsLike(response) {
