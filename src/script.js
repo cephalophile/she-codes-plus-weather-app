@@ -43,7 +43,7 @@ function convertToC(event) {
   event.preventDefault();
   //convert today's temp
   let currentTemp = document.querySelector("#current-temp");
-  currentTemp.innerHTML = "19°";
+  currentTemp.innerHTML = `${tempValue}°`;
   //convert forecast temps
   let day1HighTemp = document.querySelector("#day1-high");
   day1HighTemp.innerHTML = "11°";
@@ -66,6 +66,9 @@ function convertToC(event) {
   day4LowTemp.innerHTML = "11°";
   let day5LowTemp = document.querySelector("#day5-low");
   day5LowTemp.innerHTML = "9°";
+
+  let feelsLikeTemp = document.querySelector(".feelsLikeValue");
+  feelsLikeTemp.innerHTML = `${feelsLikeValue}°`;
 }
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", convertToC);
@@ -75,7 +78,8 @@ function convertToF(event) {
   event.preventDefault();
   //convert today's temp
   let currentTemp = document.querySelector("#current-temp");
-  currentTemp.innerHTML = "66°";
+  let FtempValue = Math.round((tempValue * 9) / 5 + 32);
+  currentTemp.innerHTML = `${FtempValue}°`;
   //convert forecast temps
   let day1HighTemp = document.querySelector("#day1-high");
   day1HighTemp.innerHTML = "52°";
@@ -98,6 +102,10 @@ function convertToF(event) {
   day4LowTemp.innerHTML = "52°";
   let day5LowTemp = document.querySelector("#day5-low");
   day5LowTemp.innerHTML = "48°";
+
+  let feelsLikeTemp = document.querySelector(".feelsLikeValue");
+  let fFeelsLikeValue = Math.round((feelsLikeValue * 9) / 5 + 32);
+  feelsLikeTemp.innerHTML = `${fFeelsLikeValue}°`;
 }
 let fahrenheit = document.querySelector("#fahrenheit");
 fahrenheit.addEventListener("click", convertToF);
@@ -132,7 +140,7 @@ function getCurrentWeather(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let apiKey = "0f381e023853e05653c74e1a82013505";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showLocation);
   axios.get(apiUrl).then(showWeatherDescription);
   axios.get(apiUrl).then(showWeatherTemp);
@@ -156,7 +164,8 @@ function showWeatherDescription(response) {
 
 function showWeatherTemp(response) {
   let currentWeatherTemp = document.querySelector("#current-temp");
-  currentWeatherTemp.innerHTML = response.data.main.temp;
+  currentWeatherTemp.innerHTML = `${Math.round(response.data.main.temp)}°`;
+  globalThis.tempValue = Math.round(response.data.main.temp);
 }
 
 function showWeatherHumidityValue(response) {
@@ -176,6 +185,7 @@ function showFeelsLike(response) {
   let temp = response.data.main.feels_like;
   temp = Math.round(temp);
   feelsLike.innerHTML = `${temp}°`;
+  globalThis.feelsLikeValue = temp;
 }
 
 function showIcon(response) {
@@ -204,7 +214,7 @@ currentLocationButton.addEventListener("click", getCurrentPosition);
 function getSearchPosition() {
   let city = document.querySelector("#city-submit").value;
   let apiKey = "0f381e023853e05653c74e1a82013505";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayWeather);
 }
 
