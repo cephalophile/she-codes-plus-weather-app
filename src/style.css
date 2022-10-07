@@ -200,16 +200,17 @@ input[type="text"]:focus {
   border-radius: 10px;
 }
 .weatherIcon {
-  font-size: 40px;
-  margin-bottom: 0px;
+  font-size: 30px;
+  margin-bottom: -20px;
+  margin-top: -15px;
 }
 .forecastDay {
   font-size: 14px;
-  margin-bottom: -10px;
+  margin-bottom: -5px;
 }
 .forecastDate {
   font-size: 14px;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
 }
 .forecastHigh,
 .forecastLow {

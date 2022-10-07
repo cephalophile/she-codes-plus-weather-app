@@ -46,26 +46,46 @@ function convertToC(event) {
   currentTemp.innerHTML = `${tempValue}°`;
   //convert forecast temps
   let day1HighTemp = document.querySelector("#day1-high");
-  day1HighTemp.innerHTML = "11°";
+  day1HighTemp.innerHTML = `${Math.round(
+    forecastTemps.data.daily[0].temp.max
+  )}°`;
   let day2HighTemp = document.querySelector("#day2-high");
-  day2HighTemp.innerHTML = "13°";
+  day2HighTemp.innerHTML = `${Math.round(
+    forecastTemps.data.daily[1].temp.max
+  )}°`;
   let day3HighTemp = document.querySelector("#day3-high");
-  day3HighTemp.innerHTML = "17°";
+  day3HighTemp.innerHTML = `${Math.round(
+    forecastTemps.data.daily[2].temp.max
+  )}°`;
   let day4HighTemp = document.querySelector("#day4-high");
-  day4HighTemp.innerHTML = "14°";
+  day4HighTemp.innerHTML = `${Math.round(
+    forecastTemps.data.daily[3].temp.max
+  )}°`;
   let day5HighTemp = document.querySelector("#day5-high");
-  day5HighTemp.innerHTML = "12°";
+  day5HighTemp.innerHTML = `${Math.round(
+    forecastTemps.data.daily[4].temp.max
+  )}°`;
 
   let day1LowTemp = document.querySelector("#day1-low");
-  day1LowTemp.innerHTML = "9°";
+  day1LowTemp.innerHTML = `${Math.round(
+    forecastTemps.data.daily[0].temp.min
+  )}°`;
   let day2LowTemp = document.querySelector("#day2-low");
-  day2LowTemp.innerHTML = "10°";
+  day2LowTemp.innerHTML = `${Math.round(
+    forecastTemps.data.daily[1].temp.min
+  )}°`;
   let day3LowTemp = document.querySelector("#day3-low");
-  day3LowTemp.innerHTML = "13°";
+  day3LowTemp.innerHTML = `${Math.round(
+    forecastTemps.data.daily[2].temp.min
+  )}°`;
   let day4LowTemp = document.querySelector("#day4-low");
-  day4LowTemp.innerHTML = "11°";
+  day4LowTemp.innerHTML = `${Math.round(
+    forecastTemps.data.daily[3].temp.min
+  )}°`;
   let day5LowTemp = document.querySelector("#day5-low");
-  day5LowTemp.innerHTML = "9°";
+  day5LowTemp.innerHTML = `${Math.round(
+    forecastTemps.data.daily[4].temp.min
+  )}°`;
 
   let feelsLikeTemp = document.querySelector(".feelsLikeValue");
   feelsLikeTemp.innerHTML = `${feelsLikeValue}°`;
@@ -86,26 +106,46 @@ function convertToF(event) {
   currentTemp.innerHTML = `${FtempValue}°`;
   //convert forecast temps
   let day1HighTemp = document.querySelector("#day1-high");
-  day1HighTemp.innerHTML = "52°";
+  day1HighTemp.innerHTML = `${Math.round(
+    (forecastTemps.data.daily[0].temp.max * 9) / 5 + 32
+  )}°`;
   let day2HighTemp = document.querySelector("#day2-high");
-  day2HighTemp.innerHTML = "55°";
+  day2HighTemp.innerHTML = `${Math.round(
+    (forecastTemps.data.daily[1].temp.max * 9) / 5 + 32
+  )}°`;
   let day3HighTemp = document.querySelector("#day3-high");
-  day3HighTemp.innerHTML = "63°";
+  day3HighTemp.innerHTML = `${Math.round(
+    (forecastTemps.data.daily[2].temp.max * 9) / 5 + 32
+  )}°`;
   let day4HighTemp = document.querySelector("#day4-high");
-  day4HighTemp.innerHTML = "57°";
+  day4HighTemp.innerHTML = `${Math.round(
+    (forecastTemps.data.daily[3].temp.max * 9) / 5 + 32
+  )}°`;
   let day5HighTemp = document.querySelector("#day5-high");
-  day5HighTemp.innerHTML = "54°";
+  day5HighTemp.innerHTML = `${Math.round(
+    (forecastTemps.data.daily[4].temp.max * 9) / 5 + 32
+  )}°`;
 
   let day1LowTemp = document.querySelector("#day1-low");
-  day1LowTemp.innerHTML = "48°";
+  day1LowTemp.innerHTML = `${Math.round(
+    (forecastTemps.data.daily[0].temp.min * 9) / 5 + 32
+  )}°`;
   let day2LowTemp = document.querySelector("#day2-low");
-  day2LowTemp.innerHTML = "50°";
+  day2LowTemp.innerHTML = `${Math.round(
+    (forecastTemps.data.daily[1].temp.min * 9) / 5 + 32
+  )}°`;
   let day3LowTemp = document.querySelector("#day3-low");
-  day3LowTemp.innerHTML = "55°";
+  day3LowTemp.innerHTML = `${Math.round(
+    (forecastTemps.data.daily[2].temp.min * 9) / 5 + 32
+  )}°`;
   let day4LowTemp = document.querySelector("#day4-low");
-  day4LowTemp.innerHTML = "52°";
+  day4LowTemp.innerHTML = `${Math.round(
+    (forecastTemps.data.daily[3].temp.min * 9) / 5 + 32
+  )}°`;
   let day5LowTemp = document.querySelector("#day5-low");
-  day5LowTemp.innerHTML = "48°";
+  day5LowTemp.innerHTML = `${Math.round(
+    (forecastTemps.data.daily[4].temp.min * 9) / 5 + 32
+  )}°`;
 
   let feelsLikeTemp = document.querySelector(".feelsLikeValue");
   let fFeelsLikeValue = Math.round((feelsLikeValue * 9) / 5 + 32);
@@ -155,6 +195,7 @@ function getCurrentWeather(position) {
   axios.get(apiUrl).then(showWind);
   axios.get(apiUrl).then(showFeelsLike);
   axios.get(apiUrl).then(showIcon);
+  axios.get(apiUrl).then(getForecast);
 }
 
 function showLocation(response) {
@@ -183,9 +224,9 @@ function showWeatherHumidityValue(response) {
 }
 
 function showWind(response) {
+  globalThis.windSpeed = Math.round(response.data.wind.speed);
   let currentWind = document.querySelector(".windValue");
   currentWind.innerHTML = `${Math.round(response.data.wind.speed)} mph`;
-  globalThis.windSpeed = Math.round(response.data.wind.speed);
 }
 
 function showFeelsLike(response) {
@@ -206,6 +247,110 @@ function showIcon(response) {
   currentIcon.setAttribute("alt", `${response.data.weather[0].description}`);
 }
 
+//forecast...//
+function getForecast(response) {
+  let lat = response.data.coord.lat;
+  let lon = response.data.coord.lon;
+  let apiKey = `b95f179627c8dd37f41e1be6e3250e19`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&cnt=5&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showForecast);
+}
+
+function showForecast(response) {
+  globalThis.forecastTemps = response;
+  let forecastElement1 = document.querySelector(".day1");
+  let forecastElement2 = document.querySelector(".day2");
+  let forecastElement3 = document.querySelector(".day3");
+  let forecastElement4 = document.querySelector(".day4");
+  let forecastElement5 = document.querySelector(".day5");
+  let forecast1 = response.data.daily[0];
+  let forecast2 = response.data.daily[1];
+  let forecast3 = response.data.daily[2];
+  let forecast4 = response.data.daily[3];
+  let forecast5 = response.data.daily[4];
+
+  let forecastHTML1 = `
+    <p class="weatherIcon" id="day1-icon"><img id="icon-1" src="http://openweathermap.org/img/wn/${
+      forecast1.weather[0].icon
+    }@2x.png" alt="#" /></p>
+          <p class="forecastDay" id="day1-day">${formatDay(forecast1.dt)}</p>
+          <p class="forecastDate" id="day1-date">${formatDate(forecast1.dt)}</p>
+          <p><span class="forecastHigh temperature" id="day1-high">${Math.round(
+            forecast1.temp.max
+          )}°</span> | <span class="forecastLow temperature" id="day1-low">${Math.round(
+    forecast1.temp.min
+  )}°</span></p>
+    `;
+  let forecastHTML2 = `
+    <p class="weatherIcon" id="day2-icon"><img id="icon-2" src="http://openweathermap.org/img/wn/${
+      forecast2.weather[0].icon
+    }@2x.png" alt="#" /></p>
+          <p class="forecastDay" id="day2-day">${formatDay(forecast2.dt)}</p>
+          <p class="forecastDate" id="day2-date">${formatDate(forecast2.dt)}</p>
+          <p><span class="forecastHigh temperature" id="day2-high">${Math.round(
+            forecast2.temp.max
+          )}°</span> | <span class="forecastLow temperature" id="day2-low">${Math.round(
+    forecast2.temp.min
+  )}°</span></p>
+    `;
+  let forecastHTML3 = `
+    <p class="weatherIcon" id="day3-icon"><img id="icon-3" src="http://openweathermap.org/img/wn/${
+      forecast3.weather[0].icon
+    }@2x.png" alt="#" /></p>
+          <p class="forecastDay" id="day3-day">${formatDay(forecast3.dt)}</p>
+          <p class="forecastDate" id="day3-date">${formatDate(forecast3.dt)}</p>
+          <p><span class="forecastHigh temperature" id="day3-high">${Math.round(
+            forecast3.temp.max
+          )}°</span> | <span class="forecastLow temperature" id="day3-low">${Math.round(
+    forecast3.temp.min
+  )}°</span></p>
+    `;
+  let forecastHTML4 = `
+    <p class="weatherIcon" id="day4-icon"><img id="icon-4" src="http://openweathermap.org/img/wn/${
+      forecast4.weather[0].icon
+    }@2x.png" alt="#" /></p>
+          <p class="forecastDay" id="day4-day">${formatDay(forecast4.dt)}</p>
+          <p class="forecastDate" id="day4-date">${formatDate(forecast4.dt)}</p>
+          <p><span class="forecastHigh temperature" id="day4-high">${Math.round(
+            forecast4.temp.max
+          )}°</span> | <span class="forecastLow temperature" id="day4-low">${Math.round(
+    forecast4.temp.min
+  )}°</span></p>
+    `;
+  let forecastHTML5 = `
+    <p class="weatherIcon" id="day5-icon"><img id="icon-5" src="http://openweathermap.org/img/wn/${
+      forecast5.weather[0].icon
+    }@2x.png" alt="#" /></p>
+          <p class="forecastDay" id="day5-day">${formatDay(forecast5.dt)}</p>
+          <p class="forecastDate" id="day5-date">${formatDate(forecast5.dt)}</p>
+          <p><span class="forecastHigh temperature" id="day5-high">${Math.round(
+            forecast5.temp.max
+          )}°</span> | <span class="forecastLow temperature" id="day5-low">${Math.round(
+    forecast5.temp.min
+  )}°</span></p>
+    `;
+  forecastElement1.innerHTML = forecastHTML1;
+  forecastElement2.innerHTML = forecastHTML2;
+  forecastElement3.innerHTML = forecastHTML3;
+  forecastElement4.innerHTML = forecastHTML4;
+  forecastElement5.innerHTML = forecastHTML5;
+}
+
+//formatting of dates
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function formatDate(timestamp) {
+  let newDate = new Date(timestamp * 1000);
+  let date = newDate.getDay();
+  let month = months[newDate.getMonth()];
+  month = month.substring(0, 3);
+  return `${month} ${date}`;
+}
 //event listener
 function getCurrentPosition() {
   //navigator.geolocation.getCurrentPosition(getCurrentCity);
@@ -235,6 +380,7 @@ function displayWeather(response) {
   showFeelsLike(response);
   showIcon(response);
   clearSearch();
+  getForecast(response);
 }
 
 function clearSearch() {
