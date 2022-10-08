@@ -165,7 +165,7 @@ fahrenheit.addEventListener("click", convertToF);
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let apiKey = "0f381e023853e05653c74e1a82013505";
-  let apiUrl = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${apiKey}`;
+  let apiUrl = `https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=5&appid=${apiKey}`;
   axios.get(apiUrl).then(showCity);
   axios.get(apiUrl).then(showState);
 }
