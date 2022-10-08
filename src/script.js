@@ -7,6 +7,9 @@ searchForm.addEventListener("submit", function handleSubmit(event) {
   // currentLocation.innerHTML = `${newCity}`;
 });
 
+//shows current weather on load
+window.onload = getCurrentPosition();
+
 //Formats current date
 let dateOnPage = document.querySelector("#current-date");
 let now = new Date();
@@ -196,6 +199,7 @@ function getCurrentWeather(position) {
   axios.get(apiUrl).then(showFeelsLike);
   axios.get(apiUrl).then(showIcon);
   axios.get(apiUrl).then(getForecast);
+  axios.get(apiUrl).then(getUVindex);
 }
 
 function showLocation(response) {
@@ -263,11 +267,11 @@ function showForecast(response) {
   let forecastElement3 = document.querySelector(".day3");
   let forecastElement4 = document.querySelector(".day4");
   let forecastElement5 = document.querySelector(".day5");
-  let forecast1 = response.data.daily[0];
-  let forecast2 = response.data.daily[1];
-  let forecast3 = response.data.daily[2];
-  let forecast4 = response.data.daily[3];
-  let forecast5 = response.data.daily[4];
+  let forecast1 = response.data.daily[1];
+  let forecast2 = response.data.daily[2];
+  let forecast3 = response.data.daily[3];
+  let forecast4 = response.data.daily[4];
+  let forecast5 = response.data.daily[5];
 
   let forecastHTML1 = `
     <p class="weatherIcon" id="day1-icon"><img id="icon-1" src="http://openweathermap.org/img/wn/${
@@ -381,6 +385,7 @@ function displayWeather(response) {
   showIcon(response);
   clearSearch();
   getForecast(response);
+  getUVindex(response);
 }
 
 function clearSearch() {
@@ -394,5 +399,43 @@ startSearch.addEventListener("submit", getSearchPosition);
 //
 //
 //...UV Index
+function getUVindex(response) {
+  let lat = response.data.coord.lat;
+  let lon = response.data.coord.lon;
+  let apiKey = `b95f179627c8dd37f41e1be6e3250e19`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&cnt=5&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(showUVindex);
+}
+
+function showUVindex(response) {
+  console.log(response);
+  let currentUVI = document.querySelector(".uvIndex");
+  console.log(currentUVI);
+  let UVIvalue = response.data.current.uvi;
+  console.log(UVIvalue);
+  if (UVIvalue >= 11) {
+    currentUVI.innerHTML = `<li class="container uvIndex UVIextreme">
+              UV Index<span class="uvIndexValue">${Math.round(UVIvalue)}</span>
+            </li>`;
+  } else if (UVIvalue >= 8 && UVIvalue < 11) {
+    currentUVI.innerHTML = `<li class="container uvIndex UVIveryHigh">
+              UV Index<span class="uvIndexValue">${Math.round(UVIvalue)}</span>
+            </li>`;
+  } else if (UVIvalue >= 6 && UVIvalue < 8) {
+    currentUVI.innerHTML = `<li class="container uvIndex UVIhigh">
+              UV Index<span class="uvIndexValue">${Math.round(UVIvalue)}</span>
+            </li>`;
+  } else if (UVIvalue >= 3 && UVIvalue < 6) {
+    currentUVI.innerHTML = `<li class="container uvIndex UVImoderate">
+              UV Index<span class="uvIndexValue">${Math.round(UVIvalue)}</span>
+            </li>`;
+  } else {
+    currentUVI.innerHTML = `<li class="container uvIndex UVIlow">
+              UV Index<span class="uvIndexValue">${Math.round(UVIvalue)}</span>
+            </li>`;
+  }
+  console.log(currentUVI);
+}
+
 //
 //

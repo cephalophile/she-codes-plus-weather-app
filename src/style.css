@@ -169,7 +169,12 @@ input[type="text"]:focus {
 
 .otherInfoBox .feelsLike,
 .uvIndex,
-.wind {
+.wind,
+.UVIlow,
+.UVImoderate,
+.UVIhigh,
+.UVIveryHigh,
+.UVIextreme {
   font-size: 14px;
   position: relative;
   right: 0px;
@@ -183,6 +188,55 @@ input[type="text"]:focus {
   float: right;
   position: relative;
   right: -10px;
+}
+
+.uvIndexValue {
+  right: -5px;
+}
+
+.UVIextreme {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 50%,
+    rgb(98, 73, 109) 100%
+  );
+  border-radius: 5px;
+}
+
+.UVIveryHigh {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 50%,
+    rgb(245, 96, 96) 100%
+  );
+  border-radius: 5px;
+}
+
+.UVIhigh {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 50%,
+    rgb(228, 178, 84) 100%
+  );
+  border-radius: 5px;
+}
+
+.UVImoderate {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 50%,
+    rgb(240, 227, 114) 100%
+  );
+  border-radius: 5px;
+}
+
+.UVIlow {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 50%,
+    rgb(86, 214, 106) 100%
+  );
+  border-radius: 5px;
 }
 
 .forecastSection {
