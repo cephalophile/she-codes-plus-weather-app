@@ -200,6 +200,7 @@ function getCurrentWeather(position) {
   axios.get(apiUrl).then(showIcon);
   axios.get(apiUrl).then(getForecast);
   axios.get(apiUrl).then(getUVindex);
+  axios.get(apiUrl).then(changeBackground);
 }
 
 function showLocation(response) {
@@ -246,9 +247,10 @@ function showIcon(response) {
   let alt = response.data.weather[0].description;
   currentIcon.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
   currentIcon.setAttribute("alt", `${response.data.weather[0].description}`);
+  globalThis.currentWeatherResponse = response.data.weather[0].icon;
 }
 
 //forecast...//
@@ -274,9 +276,9 @@ function showForecast(response) {
   let forecast5 = response.data.daily[5];
 
   let forecastHTML1 = `
-    <p class="weatherIcon" id="day1-icon"><img id="icon-1" src="http://openweathermap.org/img/wn/${
+    <p class="weatherIcon" id="day1-icon"><img id="icon-1" src="https://openweathermap.org/img/wn/${
       forecast1.weather[0].icon
-    }@2x.png" alt="#" /></p>
+    }@2x.png" alt="${forecast1.weather[0].description}" /></p>
           <p class="forecastDay" id="day1-day">${formatDay(forecast1.dt)}</p>
           <p class="forecastDate" id="day1-date">${formatDate(forecast1.dt)}</p>
           <p><span class="forecastHigh temperature" id="day1-high">${Math.round(
@@ -286,9 +288,9 @@ function showForecast(response) {
   )}°</span></p>
     `;
   let forecastHTML2 = `
-    <p class="weatherIcon" id="day2-icon"><img id="icon-2" src="http://openweathermap.org/img/wn/${
+    <p class="weatherIcon" id="day2-icon"><img id="icon-2" src="https://openweathermap.org/img/wn/${
       forecast2.weather[0].icon
-    }@2x.png" alt="#" /></p>
+    }@2x.png" alt="${forecast2.weather[0].description}" /></p>
           <p class="forecastDay" id="day2-day">${formatDay(forecast2.dt)}</p>
           <p class="forecastDate" id="day2-date">${formatDate(forecast2.dt)}</p>
           <p><span class="forecastHigh temperature" id="day2-high">${Math.round(
@@ -298,9 +300,9 @@ function showForecast(response) {
   )}°</span></p>
     `;
   let forecastHTML3 = `
-    <p class="weatherIcon" id="day3-icon"><img id="icon-3" src="http://openweathermap.org/img/wn/${
+    <p class="weatherIcon" id="day3-icon"><img id="icon-3" src="https://openweathermap.org/img/wn/${
       forecast3.weather[0].icon
-    }@2x.png" alt="#" /></p>
+    }@2x.png" alt="${forecast3.weather[0].description}" /></p>
           <p class="forecastDay" id="day3-day">${formatDay(forecast3.dt)}</p>
           <p class="forecastDate" id="day3-date">${formatDate(forecast3.dt)}</p>
           <p><span class="forecastHigh temperature" id="day3-high">${Math.round(
@@ -310,9 +312,9 @@ function showForecast(response) {
   )}°</span></p>
     `;
   let forecastHTML4 = `
-    <p class="weatherIcon" id="day4-icon"><img id="icon-4" src="http://openweathermap.org/img/wn/${
+    <p class="weatherIcon" id="day4-icon"><img id="icon-4" src="https://openweathermap.org/img/wn/${
       forecast4.weather[0].icon
-    }@2x.png" alt="#" /></p>
+    }@2x.png" alt="${forecast4.weather[0].description}" /></p>
           <p class="forecastDay" id="day4-day">${formatDay(forecast4.dt)}</p>
           <p class="forecastDate" id="day4-date">${formatDate(forecast4.dt)}</p>
           <p><span class="forecastHigh temperature" id="day4-high">${Math.round(
@@ -322,9 +324,9 @@ function showForecast(response) {
   )}°</span></p>
     `;
   let forecastHTML5 = `
-    <p class="weatherIcon" id="day5-icon"><img id="icon-5" src="http://openweathermap.org/img/wn/${
+    <p class="weatherIcon" id="day5-icon"><img id="icon-5" src="https://openweathermap.org/img/wn/${
       forecast5.weather[0].icon
-    }@2x.png" alt="#" /></p>
+    }@2x.png" alt="${forecast5.weather[0].description}" /></p>
           <p class="forecastDay" id="day5-day">${formatDay(forecast5.dt)}</p>
           <p class="forecastDate" id="day5-date">${formatDate(forecast5.dt)}</p>
           <p><span class="forecastHigh temperature" id="day5-high">${Math.round(
@@ -386,6 +388,7 @@ function displayWeather(response) {
   clearSearch();
   getForecast(response);
   getUVindex(response);
+  changeBackground(response);
 }
 
 function clearSearch() {
@@ -408,11 +411,8 @@ function getUVindex(response) {
 }
 
 function showUVindex(response) {
-  console.log(response);
   let currentUVI = document.querySelector(".uvIndex");
-  console.log(currentUVI);
   let UVIvalue = response.data.current.uvi;
-  console.log(UVIvalue);
   if (UVIvalue >= 11) {
     currentUVI.innerHTML = `<li class="container uvIndex UVIextreme">
               UV Index<span class="uvIndexValue">${Math.round(UVIvalue)}</span>
@@ -434,8 +434,54 @@ function showUVindex(response) {
               UV Index<span class="uvIndexValue">${Math.round(UVIvalue)}</span>
             </li>`;
   }
-  console.log(currentUVI);
 }
 
 //
 //
+
+//background image
+function changeBackground(response) {
+  console.log(response);
+  console.log(currentWeatherResponse);
+  let pageContainer = document.querySelector(".fullPageContainer");
+  if (currentWeatherResponse === "01d" || currentWeatherResponse === "01n") {
+    pageContainer.style.backgroundImage = "url('./images/clearsky.jpg')";
+  } else if (
+    currentWeatherResponse === "02d" ||
+    currentWeatherResponse === "02n"
+  ) {
+    pageContainer.style.backgroundImage = "url('./images/fewclouds.jpg')";
+  } else if (
+    currentWeatherResponse === "03d" ||
+    currentWeatherResponse === "03n"
+  ) {
+    pageContainer.style.backgroundImage = "url('./images/scatteredclouds.jpg')";
+  } else if (
+    currentWeatherResponse === "04d" ||
+    currentWeatherResponse === "04n"
+  ) {
+    pageContainer.style.backgroundImage = "url('./images/brokenclouds.jpg')";
+  } else if (
+    currentWeatherResponse === "09d" ||
+    currentWeatherResponse === "09n"
+  ) {
+    pageContainer.style.backgroundImage = "url('./images/showerrain.jpg')";
+  } else if (
+    currentWeatherResponse === "10d" ||
+    currentWeatherResponse === "10n"
+  ) {
+    pageContainer.style.backgroundImage = "url('./images/rain.jpg')";
+  } else if (
+    currentWeatherResponse === "11d" ||
+    currentWeatherResponse === "11n"
+  ) {
+    pageContainer.style.backgroundImage = "url('./images/thunderstorm.jpg')";
+  } else if (
+    currentWeatherResponse === "13d" ||
+    currentWeatherResponse === "13n"
+  ) {
+    pageContainer.style.backgroundImage = "url('./images/snow.jpg')";
+  } else {
+    pageContainer.style.backgroundImage = "url('./images/mist.jpg')";
+  }
+}

@@ -5,7 +5,7 @@ body {
 .fullPageContainer {
   width: 800px;
   margin: 100px auto;
-  background-image: url("../images/sunny.jpg");
+  background-image: url("../images/clearsky.jpg");
   background-size: 800px;
   border-radius: 40px;
 }
